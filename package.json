@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Desktop notifications for DeepSeek Harness when a long task finishes or waits for your input.",
   "keywords": ["dsh", "deepseek-harness", "dsh-plugin", "notification", "desktop"],
+  "author": "ZachZou-logs (https://github.com/ZachZou-logs)",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ZachZou-logs/dsh-task-alerts.git"
