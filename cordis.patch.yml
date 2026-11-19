@@ -1,0 +1,10 @@
+- insert:
+    - id: task-alerts
+      name: 'dsh-task-alerts'
+      config:
+        # 少于这么多秒的回合不提醒（0 = 每轮都提醒）
+        minSeconds: 8
+        # 通知横幅保留时长（秒）
+        lingerSeconds: 20
+        # 设为 true 时只提醒「等待你操作」，不提醒任务完成
+        silentOnFinish: false

@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "Task alerts",
+    "description": "Sends a desktop notification when a long task finishes or stops to ask you something, so you notice while another app is in front. Runs under 8 seconds stay silent.",
+    "detail": "docs/DETAIL.md"
+  }
+}

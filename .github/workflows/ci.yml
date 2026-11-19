@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate manifest
+        run: node -e "const m=require('./package.json');if(!m.dsh?.bundle?.patch)throw new Error('missing dsh.bundle.patch');if(!m.exports?.['./client'])throw new Error('missing ./client export');console.log('manifest ok', m.name, m.version)"
+
+      - name: Check JavaScript syntax
+        shell: bash
+        run: |
+          node --check index.js
+          node --check client.js
+
+      - name: Resolve config defaults
+        run: node -e "
+          const { resolveConfig, DEFAULTS } = await import('./index.js');
+          const empty = resolveConfig(undefined);
+          console.log('defaults', empty);
+          if (empty.minSeconds !== DEFAULTS.minSeconds) throw new Error('default mismatch');
+          const custom = resolveConfig({ minSeconds: 0, lingerSeconds: 5, silentOnFinish: true });
+          console.log('custom  ', custom);
+          if (custom.minSeconds !== 0 || custom.silentOnFinish !== true) throw new Error('custom config ignored');
+          const clamped = resolveConfig({ minSeconds: 99999 });
+          if (clamped.minSeconds !== 3600) throw new Error('clamp failed');
+          console.log('config ok');
+        "

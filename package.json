@@ -1,0 +1,44 @@
+{
+  "name": "dsh-task-alerts",
+  "version": "0.1.0",
+  "description": "Desktop notifications for DeepSeek Harness when a long task finishes or waits for your input.",
+  "keywords": ["dsh", "deepseek-harness", "dsh-plugin", "notification", "desktop"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZachZou-logs/dsh-task-alerts.git"
+  },
+  "homepage": "https://github.com/ZachZou-logs/dsh-task-alerts#readme",
+  "bugs": {
+    "url": "https://github.com/ZachZou-logs/dsh-task-alerts/issues"
+  },
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "docs",
+    "icon.svg",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": { "patch": "./cordis.patch.yml" },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": ["@deepseek-ai/dsh-client-ui-conversation"]
+    }
+  }
+}
